@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useValidateRegister } from "../hooks/useValidate.js";
 import { userClient } from "../clients/api.js";
+import { useValidateRegister } from "../hooks/useValidate.jsx";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
 
