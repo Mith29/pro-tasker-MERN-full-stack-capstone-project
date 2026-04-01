@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { userClient } from "../clients/api.js";
-import { useValidateRegister } from "../hooks/useValidate.jsx";
-import { useNavigate } from "react-router-dom";
+import { useValidateRegister} from '../hooks/useValidate.jsx'
+import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
+import Logo from "../assets/protasker-logo3.png";
+
 
 function Register() {
 
@@ -63,99 +65,60 @@ function Register() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-[10px]">
-      <h1>User Registration Form</h1>
-
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="mb-4">
-          <label htmlFor="firstName">Firstname:</label>
-          <input
-            className="border"
-            type="text"
-            id="firstName"
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-            autoComplete="given-name"
-            placeholder="Firstname"
-            required
-          />
-          {errors.firstName && (
-            <p className="text-red-500">{errors.firstName}</p>
-          )}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="lastName">Lastname:</label>
-          <input
-            className="border"
-            type="text"
-            id="lastName"
-            name="lastName"
-            value={form.lastName}
-            onChange={handleChange}
-            autoComplete="family-name"
-            placeholder="lastname"
-            required
-          />
-          {errors.lastName && <p className="text-red-500">{errors.lastName}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="email">Email:</label>
-          <input
-            className="border"
-            type="email"
-            id="email"
-            name="email"
-            value={form.email}
-            onChange={handleChange}
-            autoComplete="email"
-            placeholder="email"
-            required
-          />
-          {errors.email && <p className="text-red-500">{errors.email}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="password">Password:</label>
-          <input
-            className="border"
-            type="password"
-            id="password"
-            name="password"
-            value={form.password}
-            onChange={handleChange}
-            autoComplete="new-password"
-            placeholder="password"
-            required
-          />
-          {errors.password && <p className="text-red-500">{errors.password}</p>}
-        </div>
-
-        <div className="mb-4">
-          <label htmlFor="confirmPassword">Confirm-Password:</label>
-          <input
-            className="border"
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={form.confirmPassword}
-            onChange={handleChange}
-            autoComplete="new-password"
-            placeholder="retype-password"
-            required
-          />
-          {errors.confirmPassword && (
-            <p className="text-red-500">{errors.confirmPassword}</p>
-          )}
-        </div>
-
-        <button type="submit" className="border m-auto">
-          Register
-        </button>
-      </form>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+  <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
+    
+    {/* Logo */}
+    <div className="text-center mb-6">
+      <img src={Logo} alt="Logo" className="h-50 mx-auto mb-2" />
+      <h1 className="text-2xl font-bold text-gray-800">User Registration</h1>
     </div>
+
+    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+
+      {/** Input fields **/}
+      {["firstName","lastName","email","password","confirmPassword"].map((field) => (
+        <div key={field}>
+          <label htmlFor={field} className="block text-gray-700 mb-1 capitalize">
+            {field.replace(/([A-Z])/g, " $1")}
+          </label>
+          <input
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            type={field.includes("password") ? "password" : "text"}
+            id={field}
+            name={field}
+            value={form[field]}
+            onChange={handleChange}
+            placeholder={`Enter your ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`}
+            autoComplete={field === "email" ? "email" : "given-name"}
+            required
+          />
+          {errors[field] && (
+            <p className="text-red-500 text-sm mt-1">{errors[field]}</p>
+          )}
+        </div>
+      ))}
+
+      {/* Submit Button */}
+      <button
+        type="submit"
+        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+        disabled={false} // you can set true while API call is in progress
+      >
+        Register
+      </button>
+
+      {/* Login Link */}
+      <p className="text-center text-gray-500 text-sm mt-2">
+        Already have an account?{" "}
+        <Link to="/login" className="text-blue-500 hover:underline">
+          Login
+        </Link>
+      </p>
+
+    </form>
+  </div>
+</div>
   );
 }
 
