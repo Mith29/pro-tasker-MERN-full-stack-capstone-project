@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { taskClient } from "../clients/api.js";
 import { useGlobalState } from "../context/GlobalStateContext.jsx";
+import { TrashIcon, PencilIcon } from "@heroicons/react/24/outline";
+
 
 function TaskCard({ task, setTasks }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -51,45 +53,105 @@ function TaskCard({ task, setTasks }) {
   };
 
   return (
-    <div>
-      <h3>Title:{task.title}</h3>
-      <p>Description:{task.description}</p>
-      <div>Status: {task.status}</div>
-      <div>
-        Created at: {date.toLocaleDateString()} {date.toLocaleTimeString()}
-      </div>
-      <h4>Project: {task.project.name}</h4>
+    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition relative">
+  {/* Task Info */}
+  <h3 className="text-lg font-bold text-gray-800 mb-1">{task.title}</h3>
+  <p className="text-gray-600 mb-2">{task.description}</p>
 
-      <button onClick={() => setIsModalOpen(true)}>Edit</button>
-      <button onClick={handleDelete}>X</button>
+  {/* Status Badge */}
+  <div className="inline-block mb-2">
+    <span
+      className={`px-2 py-1 rounded-full text-sm font-semibold ${
+        task.status === "To Do"
+          ? "bg-gray-300 text-gray-800"
+          : task.status === "In Progress"
+          ? "bg-yellow-200 text-yellow-800"
+          : "bg-green-200 text-green-800"
+      }`}
+    >
+      {task.status}
+    </span>
+  </div>
 
-      {isModalOpen && (
-        <div>
-          <h3>Edit Task</h3>
+  {/* Created At */}
+  <div className="text-gray-500 text-sm mb-2">
+    Created at: {date.toLocaleDateString()} {date.toLocaleTimeString()}
+  </div>
 
-          <label>Title:</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} />
+  {/* Project Name */}
+  <h4 className="text-gray-700 font-medium mb-3">Project: {task.project.name}</h4>
 
-          <label>Description:</label>
+  {/* Action Buttons */}
+  <div className="flex gap-2">
+    <button
+      onClick={() => setIsModalOpen(true)}
+    >
+          <PencilIcon className="h-7 w-5 text-blue-500 hover:text-blue-800 transition"/>
+    </button>
+    <button
+      onClick={handleDelete}
+    >
+                        <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-800 transition"/>
+
+    </button>
+  </div>
+
+  {/* Edit Modal */}
+  {isModalOpen && (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+      <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
+        <h3 className="text-xl font-bold text-gray-800 mb-4">Edit Task</h3>
+
+        <div className="flex flex-col gap-3 mb-4">
+          {/* Title */}
+          <label className="text-gray-700">Title:</label>
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+
+          {/* Description */}
+          <label className="text-gray-700">Description:</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
+            rows={3}
           />
 
-          <label>Status:</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          {/* Status */}
+          <label className="text-gray-700">Status:</label>
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          >
             <option value="To Do">To Do</option>
             <option value="In Progress">In Progress</option>
             <option value="Done">Done</option>
           </select>
-
-          <div>
-            <button onClick={handleUpdate}>Save</button>
-            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
-          </div>
         </div>
-      )}
+
+        {/* Modal Buttons */}
+        <div className="flex justify-end gap-3">
+          <button
+            onClick={handleUpdate}
+            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
+          >
+            Save
+          </button>
+          <button
+            onClick={() => setIsModalOpen(false)}
+            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
     </div>
+  )}
+</div>
   );
 }
 

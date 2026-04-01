@@ -59,27 +59,81 @@ function ProjectDetails() {
   if (error) return <ErrorMessage error={error} />;
 
   return (
-    <div>
+    <div className="min-h-screen bg-gray-100 p-6">
+  <div className="max-w-4xl mx-auto">
+
+    {/* Project Card */}
+    <div className="mb-8">
       <ProjectCard project={project} variant="details" />
-      <h1>Task List</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <label>Description:</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-        <label>Status:</label>
-        <select value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="To Do">To Do</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Done">Done</option>
-        </select>
-        <button type="submit">Add Task</button>
+    </div>
+
+    {/* Task Section */}
+    <div className="bg-white p-6 rounded-2xl shadow-md mb-8">
+      <h1 className="text-2xl font-bold text-gray-800 mb-4">Task List</h1>
+
+      {/* Add Task Form */}
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-6">
+        
+        {/* Title */}
+        <div className="flex flex-col">
+          <label htmlFor="title" className="text-gray-600 mb-1">Title:</label>
+          <input
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+            placeholder="Task Title"
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+        </div>
+
+        {/* Description */}
+        <div className="flex flex-col">
+          <label htmlFor="description" className="text-gray-600 mb-1">Description:</label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            placeholder="Task Description"
+            rows={3}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
+          />
+        </div>
+
+        {/* Status */}
+        <div className="flex flex-col">
+          <label htmlFor="status" className="text-gray-600 mb-1">Status:</label>
+          <select
+            id="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          >
+            <option value="To Do">To Do</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Done">Done</option>
+          </select>
+        </div>
+
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
+        >
+          Add Task
+        </button>
       </form>
 
-      {tasks.map((task) => (
-        <TaskCard key={task._id} task={task} setTasks={setTasks} />
-      ))}
+      {/* Tasks List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {tasks.map((task) => (
+          <TaskCard key={task._id} task={task} setTasks={setTasks} />
+        ))}
+      </div>
     </div>
+  </div>
+</div>
   );
 }
 
