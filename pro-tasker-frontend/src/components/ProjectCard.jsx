@@ -48,72 +48,100 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
   if (!project) return null;
 
   return (
-    <div className="bg-white p-4 rounded-2xl shadow-md hover:shadow-lg transition relative">
-  {/* Project Info */}
-  <Link to={`/projectDetails/${project._id}`} className="block mb-2">
-    <h3 className="text-lg font-bold text-gray-800 hover:text-blue-500 transition">
-      {project.name}
-    </h3>
-  </Link>
-  <p className="text-gray-600 mb-4">{project.description}</p>
-
-  {/* Action Buttons */}
-  <div className="flex gap-2">
-    <button
-      onClick={() => setIsModalOpen(true)}
-    
-    >
-          <PencilIcon className="h-7 w-5 text-blue-500 hover:text-blue-800 transition"/>
-    </button>
-    <button
-      onClick={handleDelete}
-    >
-                  <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-800 transition"/>
-
-    </button>
-  </div>
-
-  {/* Edit Modal */}
-  {isModalOpen && (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-      <div className="bg-white p-6 rounded-2xl shadow-lg w-full max-w-md">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Edit Project</h3>
-
-        <div className="flex flex-col gap-3 mb-4">
-          <label className="text-gray-700">Name:</label>
-          <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          />
-
-          <label className="text-gray-700">Description:</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
-            rows={4}
-          />
+    <>
+      {/* Card */}
+      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-5 flex flex-col justify-between">
+        
+        {/* Header */}
+        <div className="mb-3">
+          {variant === "dashboard" ? (
+            <Link
+              to={`/projectDetails/${project._id}`}
+              className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition"
+            >
+              {project.name}
+            </Link>
+          ) : (
+            <h3 className="text-lg font-semibold text-gray-800">
+              {project.name}
+            </h3>
+          )}
+          <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+            {project.description}
+          </p>
         </div>
-
-        <div className="flex justify-end gap-3">
-          <button
-            onClick={handleUpdate}
-            className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-          >
-            Save
-          </button>
-          <button
-            onClick={() => setIsModalOpen(false)}
-            className="bg-gray-300 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-400 transition"
-          >
-            Cancel
-          </button>
+        {/* Footer */}
+        <div className="flex items-center justify-between mt-4">
+          {variant === "dashboard" ? (
+            <div className="flex gap-2">
+              <button
+                onClick={() => setIsModalOpen(true)}
+                className="px-3 py-1.5 text-sm rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
+              >
+ <PencilIcon className="h-7 w-5 text-blue-500 hover:text-blue-800 transition"/>              </button>
+              <button
+                onClick={handleDelete}
+                className="px-3 py-1.5 text-sm rounded-lg bg-red-50 text-red-600 hover:bg-red-100 transition"
+              >
+   <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-800 transition"/>              </button>
+            </div>
+          ) : (
+            <div className="text-xs text-gray-500">
+              {date
+                ? `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
+                : "-"}
+            </div>
+          )}
         </div>
+        {/* Owner (non-dashboard view) */}
+        {variant !== "dashboard" && (
+          <div className="mt-3 text-sm text-gray-600">
+            <span className="font-medium">Owner:</span>{" "}
+            {project?.user?.firstName || "-"}{" "}
+            {project?.user?.lastName || "-"}
+          </div>
+        )}
       </div>
-    </div>
-  )}
-</div>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 space-y-4">
+            
+            <h3 className="text-xl font-semibold">Edit Project</h3>
+            <div>
+              <label className="text-sm text-gray-600">Name</label>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-sm text-gray-600">Description</label>
+              <textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                className="w-full mt-1 px-3 py-2 border rounded-lg h-24 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
+              />
+            </div>
+            <div className="flex justify-end gap-3 pt-2">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 text-sm rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUpdate}
+                className="px-4 py-2 text-sm rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

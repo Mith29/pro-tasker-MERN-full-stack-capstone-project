@@ -6,29 +6,27 @@ import { useParams } from "react-router-dom";
 import { useGlobalState } from "../context/GlobalStateContext";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
-
 function ProjectDetails() {
   const [project, setProject] = useState(null);
   const [tasks, setTasks] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("To Do");
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { projectId } = useParams();
   const { loading, setLoading, error, setError } = useGlobalState();
-
   useEffect(() => {
     async function getData() {
       setLoading(true);
       try {
         const { data: projectData } = await projectClient.get(`/${projectId}`);
         setProject(projectData);
-
-        const { data: tasksData } = await projectClient.get(`/${projectId}/tasks`);
+        const { data: tasksData } = await projectClient.get(
+          `/${projectId}/tasks`
+        );
         setTasks(tasksData);
         setError(null);
       } catch (err) {
-        console.log(err);
         setError(err.message || "Failed to fetch project or tasks");
       } finally {
         setLoading(false);
@@ -36,105 +34,133 @@ function ProjectDetails() {
     }
     getData();
   }, [projectId]);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await projectClient.post(`/${projectId}/tasks`, { title, description, status });
-      setTasks([data, ...tasks]);
+      const { data } = await projectClient.post(`/${projectId}/tasks`, {
+        title,
+        description,
+        status,
+      });
+      setTasks((prev) => [data, ...prev]);
       setTitle("");
       setDescription("");
       setStatus("To Do");
+      setIsModalOpen(false);
       setError(null);
     } catch (err) {
-      console.log(err);
       setError(err.response?.data?.message || "Failed to add task");
     } finally {
       setLoading(false);
     }
   };
-
-  if (loading) return <Spinner />;
-  if (error) return <ErrorMessage error={error} />;
-
-  return (
-    <div className="min-h-screen bg-gray-100 p-6">
-  <div className="max-w-4xl mx-auto">
-
-    {/* Project Card */}
-    <div className="mb-8">
-      <ProjectCard project={project} variant="details" />
-    </div>
-
-    {/* Task Section */}
-    <div className="bg-white p-6 rounded-2xl shadow-md mb-8">
-      <h1 className="text-2xl font-bold text-gray-800 mb-4">Task List</h1>
-
-      {/* Add Task Form */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-6">
-        
-        {/* Title */}
-        <div className="flex flex-col">
-          <label htmlFor="title" className="text-gray-600 mb-1">Title:</label>
-          <input
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            required
-            placeholder="Task Title"
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          />
-        </div>
-
-        {/* Description */}
-        <div className="flex flex-col">
-          <label htmlFor="description" className="text-gray-600 mb-1">Description:</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            placeholder="Task Description"
-            rows={3}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition resize-none"
-          />
-        </div>
-
-        {/* Status */}
-        <div className="flex flex-col">
-          <label htmlFor="status" className="text-gray-600 mb-1">Status:</label>
-          <select
-            id="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-          >
-            <option value="To Do">To Do</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Done">Done</option>
-          </select>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition"
-        >
-          Add Task
-        </button>
-      </form>
-
-      {/* Tasks List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {tasks.map((task) => (
-          <TaskCard key={task._id} task={task} setTasks={setTasks} />
-        ))}
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
       </div>
+    );
+  }
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ErrorMessage error={error} />
+      </div>
+    );
+  }
+  return (
+    <div className="min-h-screen bg-gray-50 p-6">
+      <div className="max-w-6xl mx-auto space-y-8">
+        {/* Header + Project */}
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <ProjectCard project={project} variant="details" />
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow-sm transition"
+            >
+              + New Task
+            </button>
+          </div>
+        </div>
+        {/* Tasks Section */}
+        <div>
+          <h2 className="text-xl font-semibold mb-4">Tasks</h2>
+          {tasks.length === 0 ? (
+            <p className="text-gray-500">No tasks available.</p>
+          ) : (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {tasks.map((task) => (
+                <div
+                  key={task._id}
+                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-4"
+                >
+                  <TaskCard task={task} setTasks={setTasks} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      {/* Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white w-full max-w-md rounded-2xl shadow-lg p-6 space-y-4">
+            <h2 className="text-xl font-semibold">Create New Task</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label className="text-sm text-gray-600">Title</label>
+                <input
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="Task title"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-600">Description</label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                  className="w-full mt-1 px-4 py-2 border rounded-lg h-24 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
+                  placeholder="Task description"
+                />
+              </div>
+              <div>
+                <label className="text-sm text-gray-600">Status</label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="w-full mt-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                >
+                  <option value="To Do">To Do</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Done">Done</option>
+                </select>
+              </div>
+              <div className="flex justify-end gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
+                >
+                  Create
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
-  </div>
-</div>
   );
 }
-
 export default ProjectDetails;
