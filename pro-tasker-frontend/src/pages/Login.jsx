@@ -2,7 +2,7 @@ import { useState } from "react";
 import { userClient } from "../clients/api";
 import { useUser } from "../context/UserContext";
 import { useNavigate } from "react-router-dom";
-import { useValidateLogin } from "../hooks/useValidate.js";
+import { useValidateLogin } from "../hooks/useValidate";
 import Logo from "../assets/protasker-logo3.png";
 
 function Login() {
@@ -43,11 +43,11 @@ function Login() {
 
         {/* Logo */}
         <div className="flex justify-center mb-6">
-          <img src={Logo} alt="ProTasker Logo" className="h-20" />
+          <img src={Logo} alt="ProTasker Logo" className="h-50" />
         </div>
 
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-8">
-          Welcome Back
+          Welcome Back!
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-6">
