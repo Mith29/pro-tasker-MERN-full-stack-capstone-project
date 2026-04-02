@@ -1,12 +1,11 @@
-import React from "react";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
 import { useCalculate } from "../hooks/useCalculate";
 
 // Theme colors
 const STATUS_COLORS = {
-  Done: "#76a5f1",        // Blue
-  "In Progress": "#0c0f9c", // Indigo
-  "To Do": "#8866d8",      // Purple
+  Done: "#76a5f1",        
+  "In Progress": "#0c0f9c", 
+  "To Do": "#8866d8",     
 };
 
 const TaskStatusCard = ({ tasks }) => {
@@ -27,7 +26,7 @@ const TaskStatusCard = ({ tasks }) => {
       </p>
 
       <div className="flex flex-col md:flex-row items-center gap-6">
-        {/* Animated Donut Pie Chart */}
+        {/* Pie Chart */}
         <div style={{ width: "100%", maxWidth: 250, height: 250, position: "relative" }}>
           <ResponsiveContainer>
             <PieChart>
@@ -38,7 +37,7 @@ const TaskStatusCard = ({ tasks }) => {
                 cx="50%"
                 cy="50%"
                 outerRadius={90}
-                innerRadius={60} // donut
+                innerRadius={60} 
                 label={false}
                 isAnimationActive={true}
                 animationDuration={1000} // 1 second

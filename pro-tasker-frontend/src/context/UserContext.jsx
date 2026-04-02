@@ -28,16 +28,10 @@ function UserProvider({ children }) {
           return;
         }
 
-        //use the token to verify the user (is token valid? is it expired?)
-
-        // const user = await userClient.get('/');
-        // console.log(user);
+       
 
         const { data } = await userClient.get("/");
 
-        //to check or to slowdown the process manually
-
-        // await new Promise((res) =>{ setTimeout(res, 2000)});
 
         console.log(data);
 
