@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { useGlobalState } from "../context/GlobalStateContext";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
+import SearchCard from "../components/SearchCard";
 function ProjectDetails() {
   const [project, setProject] = useState(null);
   const [tasks, setTasks] = useState([]);
@@ -84,6 +85,7 @@ function ProjectDetails() {
             </button>
           </div>
         </div>
+        <SearchCard data={tasks}/>
         {/* Tasks Section */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Tasks</h2>
