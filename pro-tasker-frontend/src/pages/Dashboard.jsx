@@ -8,6 +8,7 @@ function Dashboard() {
   const [projects, setProjects] = useState([]);
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [status, setStatus] = useState("Pending");
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { loading, setLoading, error, setError } = useGlobalState();
   useEffect(() => {
@@ -29,10 +30,11 @@ function Dashboard() {
     e.preventDefault();
     setLoading(true);
     try {
-      const { data } = await projectClient.post("/", { name, description });
+      const { data } = await projectClient.post("/", { name, description, status});
       setProjects((prev) => [data, ...prev]);
       setName("");
       setDescription("");
+      setStatus("Pending");
       setIsModalOpen(false);
       setError(null);
     } catch (err) {
@@ -135,6 +137,18 @@ function Dashboard() {
                   className="w-full mt-1 px-4 py-2 border rounded-xl h-24 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
                   placeholder="Enter project description"
                 />
+              </div>
+              <div>
+                <label>Status</label>
+                <select 
+                value= {status}
+                onchange = {(e)=>setStatus(e.target.value)}
+                required
+                >
+               <option value="Pending">Pending</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="Completed">Completed</option>
+                </select>
               </div>
               <div className="flex justify-end gap-3 pt-2">
                 <button

@@ -8,6 +8,7 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [name, setName] = useState(project?.name || "");
   const [description, setDescription] = useState(project?.description || "");
+  const [status, setStatus] = useState(project?.status || "");
 
   const { setLoading, setError } = useGlobalState();
   const date = project?.createdAt ? new Date(project.createdAt) : null;
@@ -17,7 +18,7 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
     setLoading(true);
     setError(null);
     try {
-      const { data } = await projectClient.put(`/${project._id}`, { name, description });
+      const { data } = await projectClient.put(`/${project._id}`, { name, description,status });
       setProjects((prev) => prev.map((p) => (p._id === project._id ? data : p)));
       setIsModalOpen(false);
     } catch (e) {
@@ -44,6 +45,39 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
       setLoading(false);
     }
   };
+
+   const getStatusColor = (status) => {
+    switch (status) {
+      case "Completed":
+        return "bg-green-100 text-green-700";
+      case "In-Progress":
+        return "bg-yellow-100 text-yellow-700";
+      default:
+        return "bg-gray-100 text-gray-700";
+    }
+  };
+
+  const handleStatusChange = async (e) => {
+  const newStatus = e.target.value;
+  setStatus(newStatus);
+  setLoading(true);
+  setError(null);
+  try {
+    const { data } = await projectClient.put(`/${project._id}`, {
+      name,
+      description,
+      status: newStatus,
+    });
+    setProjects((prev) =>
+      prev.map((p) => (p._id === project._id ? data : p))
+    );
+  } catch (e) {
+    setError(e.response?.data?.message || "Failed to update status");
+  } finally {
+    setLoading(false);
+  }
+}
+
 
   if (!project) return null;
 
@@ -74,6 +108,16 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
         <div className="flex items-center justify-between mt-4">
           {variant === "dashboard" ? (
             <div className="flex gap-2">
+                <select
+              value={status}
+              onChange={handleStatusChange}
+              className={`text-xs px-2 py-1 rounded-full border outline-none cursor-pointer ${getStatusColor(status)}`}
+            >
+              <option value="Pending">Pending</option>
+              <option value="In-Progress">In-Progress</option>
+              <option value="Completed">Completed</option>
+            </select>
+
               <button
                 onClick={() => setIsModalOpen(true)}
                 className="px-3 py-1.5 text-sm rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-100 transition"
@@ -95,7 +139,10 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
         </div>
         {/* Owner (non-dashboard view) */}
         {variant !== "dashboard" && (
-          <div className="mt-3 text-sm text-gray-600">
+                      <div className="mt-3 text-sm text-gray-600">
+
+            
+
             <span className="font-medium">Owner:</span>{" "}
             {project?.user?.firstName || "-"}{" "}
             {project?.user?.lastName || "-"}
@@ -124,6 +171,19 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
                 className="w-full mt-1 px-3 py-2 border rounded-lg h-24 resize-none focus:ring-2 focus:ring-blue-500 outline-none"
               />
             </div>
+            <div>
+              <label className="text-sm text-gray-600">Status</label>
+              <select
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+              >
+                <option value="Pending">Pending</option>
+                <option value="In-Progress">In-Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+
             <div className="flex justify-end gap-3 pt-2">
               <button
                 onClick={() => setIsModalOpen(false)}
