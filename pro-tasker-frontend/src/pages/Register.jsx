@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { userClient } from "../clients/api.js";
-import { useValidateRegister} from '../hooks/useValidate.jsx'
+import { useValidateRegister} from '../hooks/useValidate.js'
 import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
 import Logo from "../assets/protasker-logo3.png";
