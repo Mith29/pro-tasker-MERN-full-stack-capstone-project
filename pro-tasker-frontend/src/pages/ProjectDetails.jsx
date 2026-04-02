@@ -16,6 +16,9 @@ function ProjectDetails() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { projectId } = useParams();
   const { loading, setLoading, error, setError } = useGlobalState();
+  const [filteredTasks, setFilteredTasks] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -85,24 +88,19 @@ function ProjectDetails() {
             </button>
           </div>
         </div>
-        <SearchCard data={tasks}/>
-        {/* Tasks Section */}
+<SearchCard data={tasks} onFilter={setFilteredTasks} />       
+ {/* Tasks Section */}
         <div>
           <h2 className="text-xl font-semibold mb-4">Tasks</h2>
-          {tasks.length === 0 ? (
-            <p className="text-gray-500">No tasks available.</p>
-          ) : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {tasks.map((task) => (
-                <div
-                  key={task._id}
-                  className="bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-lg transition p-4"
-                >
-                  <TaskCard task={task} setTasks={setTasks} />
-                </div>
-              ))}
-            </div>
-          )}
+          {filteredTasks.length === 0 ? (
+  <p className="text-gray-500">No tasks found.</p>
+) : (
+  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    {filteredTasks.map((task) => (
+      <TaskCard key={task._id} task={task} setTasks={setTasks} />
+    ))}
+  </div>
+)}
         </div>
       </div>
       {/* Modal */}
