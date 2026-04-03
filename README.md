@@ -207,8 +207,7 @@ npm run dev
 * Handling async API calls and UI states
 ### Future Improvements
 * Real-time collaboration 
-* Notifications system
-* File attachments for tasks
+* Due date for projects
 * Role-based permissions
 ### Author
 #### Gnanamithra Venugopal
