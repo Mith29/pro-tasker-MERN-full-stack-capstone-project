@@ -133,43 +133,57 @@ pro-tasker/
 * Tasks are restricted to their parent project owner
 ---
 ### API Endpoints
-* Auth Routes
-* MethodﾠEndpointﾠDescription
-* POSTﾠ/api/users/registerﾠRegister a new user
-* POSTﾠ/api/users/loginﾠLogin user
-* Project Routes
-* MethodﾠEndpointﾠDescription
-*GETﾠ/api/projects/ﾠGet all user projects
-POSTﾠ/api/projects/ﾠCreate a new project
-GETﾠ/api/projects/:projectIdﾠGet single project
-PUTﾠ/api/projects/:projectIdﾠUpdate project
-DELETEﾠ/api/projects/:projectIdﾠDelete project
-Task Routes
-MethodﾠEndpointﾠDescription
-GETﾠ/api/projects/ :projectId /tasksﾠGet tasks for project
-POSTﾠ/api/projects/ :projectId /tasksﾠCreate new task
-PUTﾠ/api/tasks/:taskIdﾠUpdate task
-DELETEﾠ/api/tasks/ :taskIdﾠDelete task
+## API Routes
+
+### Auth Routes
+
+| Method | Endpoint | Description |
+|------|------|------|
+| POST | /api/users/register | Register a new user |
+| POST | /api/users/login | Login user |
+
+---
+
+### Project Routes
+
+| Method | Endpoint | Description |
+|------|------|------|
+| GET | /api/projects | Get all user projects |
+| POST | /api/projects | Create a new project |
+| GET | /api/projects/:projectId | Get a single project |
+| PUT | /api/projects/:projectId | Update a project |
+| DELETE | /api/projects/:projectId | Delete a project |
+
+---
+
+### Task Routes
+
+| Method | Endpoint | Description |
+|------|------|------|
+| GET | /api/projects/:projectId/tasks | Get tasks for a project |
+| POST | /api/projects/:projectId/tasks | Create a new task |
+| PUT | /api/tasks/:taskId | Update a task |
+| DELETE | /api/tasks/:taskId | Delete a task |
 ### Environment Variables
 * Create a .env file in the backend directory:
-     PORT=3000
-     MONGO_URI=your_mongodb_connection_string
-     JWT_SECRET=your_secret_key
+         PORT=3000
+         MONGO_URI=your_mongodb_connection_string
+         JWT_SECRET=your_secret_key
 
 ### Installation & Setup
 1. Clone Repository
-     git clone https://github.com/Mith29/pro-tasker-MERN-full-stack-capstone-project
-     cd pro-tasker-MERN-full-stack-capstone-project    
+         git clone https://github.com/Mith29/pro-tasker-MERN-full-stack-capstone-project
+         cd pro-tasker-MERN-full-stack-capstone-project    
 
 2. Backend Setup
-      cd pro-tasker-backend
-     npm install
-     npm run dev
+           cd pro-tasker-backend
+          npm install
+          npm run dev
 
 3. Frontend Setup
-     cd pro-tasker-frontend
-     npm install
-     npm run dev
+          cd pro-tasker-frontend
+         npm install
+         npm run dev
 
 ### Deployment
 * Backend
@@ -193,5 +207,6 @@ DELETEﾠ/api/tasks/ :taskIdﾠDelete task
 * File attachments for tasks
 * Role-based permissions
 ### Author
-Gnanamithra Venugopal
+#### Gnanamithra Venugopal
+
 Full-Stack Developer
