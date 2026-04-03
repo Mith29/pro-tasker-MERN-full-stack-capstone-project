@@ -1,5 +1,5 @@
-import Project from "../models/Project.js";
-import Task from "../models/Task.js";
+import Project from "../models/project.js";
+import Task from "../models/task.js";
 //create project
 export async function createProject(req, res) {
   try {
