@@ -49,7 +49,7 @@ This application demonstrates full-stack development skills including API design
 ---
 ## Project Structure
 ### Backend Structure
-
+````
 pro-tasker/
 └── backend/
     ├── config/
@@ -78,9 +78,9 @@ pro-tasker/
     ├── .gitignore
     ├── package.json
     └── server.js                # Entry point
-
+````
 ### Frontend Structure
-
+````
 pro-tasker/
 └── frontend/
     ├── public/
@@ -123,7 +123,7 @@ pro-tasker/
     ├── .env
     ├── package.json
     └── vite.config.js
-
+````
 ---
 ### Authentication & Authorization
 * JWT-based authentication
