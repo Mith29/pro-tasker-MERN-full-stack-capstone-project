@@ -106,7 +106,7 @@ function Login() {
         {/* Login Button */}
         <button
           type="submit"
-          className="cursor-pointer w-full py-2 sm:py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition text-sm sm:text-base"
+          className="cursor-pointer w-full py-2 sm:py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:bg-indigo-700 transition text-sm sm:text-base"
         >
           Login
         </button>

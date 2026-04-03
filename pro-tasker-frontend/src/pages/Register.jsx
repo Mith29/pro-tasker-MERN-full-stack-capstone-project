@@ -164,7 +164,7 @@ function Register() {
         {/* REGISTER BUTTON */}
         <button
           type="submit"
-          className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold 
+          className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold 
                      hover:bg-indigo-700 transition cursor-pointer"
         >
           Register

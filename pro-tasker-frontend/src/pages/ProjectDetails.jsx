@@ -194,13 +194,13 @@ function ProjectDetails() {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300"
+                  className="px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition"
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:bg-blue-700 transition cursor-pointer"
                 >
                   Create
                 </button>

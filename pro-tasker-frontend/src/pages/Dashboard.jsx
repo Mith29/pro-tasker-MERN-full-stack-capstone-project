@@ -116,7 +116,7 @@ function Dashboard() {
         {/* Projects */}
         <div>
           <h2 className="text-xl font-semibold mb-4 text-indigo-800">
-            {searchQuery ? "Search Results" : "Your Projects"}
+            {searchQuery ? "Search Results" : "My Projects"}
           </h2>
 
           {searchQuery ? (
@@ -181,10 +181,13 @@ function Dashboard() {
               </select>
 
               <div className="flex justify-end gap-2">
-                <button type="button" onClick={() => setIsModalOpen(false)}>
+                <button type="button" onClick={() => setIsModalOpen(false)}
+                  className="px-5 py-2 rounded-xl bg-gray-200 hover:bg-gray-300 cursor-pointer">
                   Cancel
                 </button>
-                <button type="submit" className="bg-indigo-600 text-white px-4 py-2 rounded">
+                <button type="submit"                  
+                 className="px-5 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:bg-blue-700 transition cursor-pointer"
+>
                   Create
                 </button>
               </div>
