@@ -166,25 +166,29 @@ pro-tasker/
 | DELETE | /api/tasks/:taskId | Delete a task |
 ### Environment Variables
 * Create a .env file in the backend directory:
+```
          PORT=3000
          MONGO_URI=your_mongodb_connection_string
          JWT_SECRET=your_secret_key
-
+```
 ### Installation & Setup
 1. Clone Repository
+```
          git clone https://github.com/Mith29/pro-tasker-MERN-full-stack-capstone-project
          cd pro-tasker-MERN-full-stack-capstone-project    
-
+```
 2. Backend Setup
+```
            cd pro-tasker-backend
           npm install
           npm run dev
-
+```
 3. Frontend Setup
+```
           cd pro-tasker-frontend
          npm install
          npm run dev
-
+```
 ### Deployment
 * Backend
   -Deployed as a Web Service on Render
