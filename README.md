@@ -5,8 +5,11 @@ Pro-Tasker is a modern, collaborative project management web application built u
 This application demonstrates full-stack development skills including API design, authentication, authorization, database modeling, frontend state management, and deployment.
 
 ### Live URLs
-* **Frontend:**  https://pro-tasker-full-stack-project.netlify.app
+* **Frontend:**  https://pro-tasker-mern-full-stack-by-mithra.netlify.app
 * **Backend API:**  https://pro-tasker-mern-full-stack-capstone-2n9j.onrender.com
+
+<img src="./pro-tasker-frontend/src/assets/screenshot.png" width=700px height=500px/>
+
 -----------------------------------------------------------------------------------------------------------------
 ## Features
 ### User Management
