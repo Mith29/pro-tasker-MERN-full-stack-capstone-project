@@ -8,7 +8,7 @@ This application demonstrates full-stack development skills including API design
 * **Frontend:**  https://pro-tasker-mern-full-stack-by-mithra.netlify.app
 * **Backend API:**  https://pro-tasker-mern-full-stack-capstone-2n9j.onrender.com
 
-<img src="./pro-tasker-frontend/src/assets/screenshot.png" width=700px height=500px/>
+<img src="./pro-tasker-frontend/src/assets/screenshot.png" width=900px height=500px/>
 
 -----------------------------------------------------------------------------------------------------------------
 ## Features
@@ -143,7 +143,8 @@ pro-tasker/
 | Method | Endpoint | Description |
 |------|------|------|
 | POST | /api/users/register | Register a new user |
-| POST | /api/users/login | Login user |
+| POST | /api/users/login    | Login user |
+| GET  | /api/users/         | Verify user |
 
 ---
 
