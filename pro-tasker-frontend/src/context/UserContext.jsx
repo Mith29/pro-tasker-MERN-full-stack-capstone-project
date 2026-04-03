@@ -33,7 +33,7 @@ function UserProvider({ children }) {
         const { data } = await userClient.get("/");
 
 
-        console.log(data);
+       //console.log(data);
 
         //if verified that token is legit, take the user data and save it to state
 

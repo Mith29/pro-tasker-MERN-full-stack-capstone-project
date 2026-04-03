@@ -3,7 +3,7 @@ import { userClient } from "../clients/api.js";
 import { useValidateRegister} from '../hooks/useValidate.js'
 import { useNavigate, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext.jsx";
-import Logo from "../assets/protasker-logo3.png";
+import peep from "../assets/peep.webp";
 
 
 function Register() {
@@ -65,60 +65,127 @@ function Register() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-600 via-purple-600 to-blue-500 px-4">
-  <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-lg">
-    
-    {/* Logo */}
-    <div className="text-center mb-6">
-      <img src={Logo} alt="Logo" className="h-50 mx-auto mb-2" />
-      <h1 className="text-2xl font-bold text-gray-800">User Registration</h1>
-    </div>
+    <div className="min-h-screen flex">
 
-    <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+  {/* Image Section */}
+  <div className="w-1/2 hidden md:block">
+    <img
+      src={peep}
+      alt="Register Visual"
+      className="h-full w-full object-cover"
+    />
+  </div>
 
-      {/** Input fields **/}
-      {["firstName","lastName","email","password","confirmPassword"].map((field) => (
-        <div key={field}>
-          <label htmlFor={field} className="block text-gray-700 mb-1 capitalize">
-            {field.replace(/([A-Z])/g, " $1")}
-          </label>
-          <input
-            className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
-            type={field.includes("password") ? "password" : "text"}
-            id={field}
-            name={field}
-            value={form[field]}
-            onChange={handleChange}
-            placeholder={`Enter your ${field.replace(/([A-Z])/g, " $1").toLowerCase()}`}
-            autoComplete={field === "email" ? "email" : "given-name"}
-            required
-          />
-          {errors[field] && (
-            <p className="text-red-500 text-sm mt-1">{errors[field]}</p>
-          )}
-        </div>
-      ))}
+  {/*  Form Section */}
+  <div className="w-full md:w-1/2 flex flex-col justify-center items-center px-6 sm:px-12">
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition disabled:opacity-50"
-        disabled={false} // you can set true while API call is in progress
-      >
-        Register
-      </button>
+    {/* Headings */}
+    <h2 className="text-xl sm:text-sm md:text-md lg:text-3xl font-bold text-gray-800 mb-4 text-center">
+      Create Your Account
+    </h2>
 
-      {/* Login Link */}
-      <p className="text-center text-gray-500 text-sm mt-2">
-        Already have an account?{" "}
-        <Link to="/login" className="text-blue-500 hover:underline">
-          Login
-        </Link>
+    <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+      <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-indigo-600 text-center">
+        Join ProTasker
+      </h1>
+
+      <p className="text-gray-600 text-center mb-8 text-sm sm:text-base">
+        Sign up today and take control of your tasks and projects efficiently.
       </p>
 
-    </form>
+      {/* Form */}
+      <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
+
+        {/* FIRST + LAST NAME ROW */}
+        <div className="flex flex-col sm:flex-row gap-4">
+          <input
+            type="text"
+            name="firstName"
+            value={form.firstName}
+            onChange={handleChange}
+            placeholder="First name"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+
+          <input
+            type="text"
+            name="lastName"
+            value={form.lastName}
+            onChange={handleChange}
+            placeholder="Last name"
+            className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
+                       focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          />
+        </div>
+
+        {/* EMAIL */}
+        <input
+          type="text"
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+          autoComplete="username"
+          className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+
+        {/* PASSWORD */}
+        <input
+          type="password"
+          name="password"
+          value={form.password}
+          onChange={handleChange}
+          placeholder="Password"
+          autoComplete="new-password"
+          className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {errors.password && <p className="text-red-500 text-sm">{errors.password}</p>}
+
+        {/* CONFIRM PASSWORD */}
+        <input
+          type="password"
+          name="confirmPassword"
+          value={form.confirmPassword}
+          onChange={handleChange}
+          placeholder="Confirm password"
+          autoComplete="new-password"
+
+          className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
+                     focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
+        {errors.confirmPassword && (
+          <p className="text-red-500 text-sm">{errors.confirmPassword}</p>
+        )}
+
+        {/* REGISTER BUTTON */}
+        <button
+          type="submit"
+          className="w-full py-3 rounded-xl bg-indigo-600 text-white font-semibold 
+                     hover:bg-indigo-700 transition cursor-pointer"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+
+    {/* Login Link */}
+    <p className="text-center text-gray-600 text-sm mt-6">
+      Already have an account?{" "}
+      <span
+        className="text-indigo-600 font-semibold hover:underline cursor-pointer"
+        onClick={() => navigate("/login")}
+      >
+        Login
+      </span>
+    </p>
+
   </div>
 </div>
+
   );
 }
 

@@ -75,7 +75,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen  p-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-200 to-purple-100 p-6">
       <div className="max-w-6xl mx-auto space-y-8">
 
         {/* Header */}
@@ -91,14 +91,14 @@ function Dashboard() {
 
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2 rounded-xl"
+            className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-5 py-2 rounded-xl"
           >
             + New Project
           </button>
         </div>
 
         {/* Search */}
-        <div className="bg-white/70 p-4 rounded-2xl shadow">
+        <div>
           <SearchCard
             data={projects}
             onFilter={setFilteredProjects}
@@ -108,7 +108,7 @@ function Dashboard() {
 
         {/* Stats (hide during search) */}
         {!searchQuery && (
-          <div className="bg-white/70 p-4 rounded-2xl shadow">
+          <div className="bg-gradient-to-br from-blue-600 to-purple-500 p-4 rounded-2xl shadow">
             <StatsCard projects={projects} />
           </div>
         )}

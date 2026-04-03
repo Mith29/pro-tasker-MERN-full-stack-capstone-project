@@ -10,7 +10,7 @@ const stats = {
     return(
 
         
-         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 ">
         <div className="bg-white rounded-xl shadow p-4 text-center">
           <p className="text-slate-500 text-sm">Total</p>
           <p className="text-xl font-bold text-slate-800">{stats.total}</p>

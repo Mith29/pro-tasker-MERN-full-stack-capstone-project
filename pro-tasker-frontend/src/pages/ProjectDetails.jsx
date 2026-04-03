@@ -83,22 +83,33 @@ function ProjectDetails() {
   }
 
   return (
+    <>
+     
+
     <div className="min-h-screen bg-gradient-to-br from-blue-200 to-purple-100 p-6">
       <div className="max-w-7xl mx-auto space-y-8">
-
+{/* Page Header */}
+        <div className="text-center md:text-left mb-6">
+          <h1 className="text-4xl font-bold text-indigo-800 mb-2">
+            {project?.name || "Project Dashboard"}
+          </h1>
+          <p className="text-gray-600 text-lg">
+            Track tasks, monitor progress, and manage your project effectively.
+          </p>
+        </div>
         {/* Header & New Task */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
           <ProjectCard project={project} variant="details" />
           <button
             onClick={() => setIsModalOpen(true)}
-            className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md transition"
+            className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl shadow-md transition"
           >
             + New Task
           </button>
         </div>
 
      {/* Search */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+        <div >
           <SearchCard
             data={tasks}
             onFilter={setFilteredTasks}
@@ -107,7 +118,7 @@ function ProjectDetails() {
         </div>
         
         {/* Task Progress */}
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6">
+        <div >
           <TaskStatusCard tasks={tasks} />
         </div>
 
@@ -199,6 +210,7 @@ function ProjectDetails() {
         </div>
       )}
     </div>
+    </>
   );
 }
 

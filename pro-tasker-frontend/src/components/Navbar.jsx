@@ -8,8 +8,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200">
-<div className="max-w-7xl mx-auto px-6 h-16 flex justify-between items-center">
+    <nav className="bg-white border-b border-gray-200">
+<div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
         {/* Logo */}
         <Link to="/">
           <img src={Logo} alt="ProTasker Logo" className="h-50 w-auto" />
@@ -19,8 +19,8 @@ function Navbar() {
         <div className="hidden md:flex items-center gap-6">
 
           {user?.firstName && (
-            <span className="text-gray-600 font-medium">
-              Welcome {user.firstName}
+            <span className="text-purple-600 font-medium text-xl">
+              Welcome {user.firstName}!
             </span>
           )}
 
@@ -28,14 +28,14 @@ function Navbar() {
             <>
               <Link
                 to="/dashboard"
-                className="text-gray-700 hover:text-indigo-600 font-medium"
+                className="text-gray-700 hover:text-indigo-600 font-medium text-xl"
               >
                 Dashboard
               </Link>
 
               <button
                 onClick={logout}
-                className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
+                className="cursor-pointer bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition"
               >
                 Logout
               </button>

@@ -125,7 +125,7 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-between mt-4">
+        <div className="flex items-center justify-between">
           {variant === "dashboard" ? (
             <div className="flex gap-2">
               <select
@@ -141,15 +141,16 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
               </select>
 
               <button onClick={() => setIsModalOpen(true)}>
-                <PencilIcon className="h-7 w-5 text-blue-500 hover:text-blue-800 transition" />
+                <PencilIcon className="cursor-pointer h-7 w-5 text-blue-500 hover:text-blue-800 transition" />
               </button>
 
               <button onClick={handleDelete}>
-                <TrashIcon className="h-5 w-5 text-red-500 hover:text-red-800 transition" />
+                <TrashIcon className="cursor-pointer h-5 w-5 text-red-500 hover:text-red-800 transition" />
               </button>
             </div>
           ) : (
-            <div className="text-xs text-gray-500">
+            <div className="mt-3 text-sm text-gray-600">
+              <span className="font-medium">CreatedAt:</span>{" "}
               {date
                 ? `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`
                 : "-"}
