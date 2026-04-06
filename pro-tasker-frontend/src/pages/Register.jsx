@@ -107,6 +107,7 @@ function Register() {
             className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
                        focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+        {errors.firstName && <span className="text-red-500 text-sm">{errors.firstName}</span>}
 
           <input
             type="text"
@@ -116,7 +117,10 @@ function Register() {
             placeholder="Last name"
             className="w-full border border-gray-300 rounded-xl px-4 py-3 bg-gray-50 
                        focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                       
           />
+                  {errors.lastName && <span className="text-red-500 text-sm">{errors.lastName}</span>}
+
         </div>
 
         {/* EMAIL */}

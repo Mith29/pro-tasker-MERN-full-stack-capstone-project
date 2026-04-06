@@ -28,10 +28,7 @@ function UserProvider({ children }) {
           return;
         }
 
-       
-
         const { data } = await userClient.get("/");
-
 
        //console.log(data);
 

@@ -83,7 +83,6 @@ function ProjectCard({ project, setProjects, variant = "dashboard" }) {
       )
     );
 
-
     try {
       const { data } = await projectClient.put(`/${project._id}`, {
         status: newStatus, 
