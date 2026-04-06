@@ -2,8 +2,6 @@
 
 ##  Project Overview
 
-## Overview
-
 Pro-Tasker is a project management application built with the MERN stack (MongoDB, Express, React, and Node.js). It allows users to create projects and efficiently manage tasks within each project.
 
 The React frontend communicates with the Node.js and Express backend, while data is stored in MongoDB. CRUD operations for projects and tasks are fully integrated, so users can create, view, update, and delete data dynamically.
