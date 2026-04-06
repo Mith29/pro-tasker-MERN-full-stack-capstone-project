@@ -1,7 +1,6 @@
  <h1 align="center"> Pro-Tasker — Full-Stack MERN Application </h1>
 
 ##  Project Overview
-## Overview
 
 ## Overview
 
