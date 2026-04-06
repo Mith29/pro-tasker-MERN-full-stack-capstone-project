@@ -1,8 +1,15 @@
  <h1 align="center"> Pro-Tasker — Full-Stack MERN Application </h1>
 
 ##  Project Overview
-Pro-Tasker is a modern, collaborative project management web application built using the MERN stack (MongoDB, Express, React, Node.js). It is designed to help individuals and small teams efficiently manage projects and tasks with a clean, intuitive interface and secure backend.
-This application demonstrates full-stack development skills including API design, authentication, authorization, database modeling, frontend state management, and deployment.
+## Overview
+
+## Overview
+
+Pro-Tasker is a project management application built with the MERN stack (MongoDB, Express, React, and Node.js). It allows users to create projects and efficiently manage tasks within each project.
+
+The React frontend communicates with the Node.js and Express backend, while data is stored in MongoDB. CRUD operations for projects and tasks are fully integrated, so users can create, view, update, and delete data dynamically.
+
+User authentication is implemented to ensure that each user can securely access and manage their own projects and tasks.
 
 ### Live URLs
 * **Frontend:**  https://pro-tasker-mern-full-stack-by-mithra.netlify.app
